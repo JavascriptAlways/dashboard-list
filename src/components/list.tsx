@@ -5,7 +5,7 @@ import {Item} from "./interfaces.ts";
 
 function List() {
     const [list, setList] = useState<Item[]>([]);
-    const [favorites, setFavorites] = useState<Item[]>([]);
+    const [listItem, setListItem] = useState<Item[]>([]);
     const [page, setPage] = useState<number>(1);
     const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
@@ -21,9 +21,9 @@ function List() {
         fetchData();
     }, [page]);
 
-    const addToFavorites = (item: Item) => {
-        if (!favorites.some(fav => fav.id === item.id)) {
-            setFavorites([...favorites, item]);
+    const addToList = (item: Item) => {
+        if (!listItem.some(fav => fav.id === item.id)) {
+            setListItem([...listItem, item]);
         }
     };
 
@@ -50,8 +50,8 @@ function List() {
                 {list.map((item, index) => (
                     <li key={index}>
                         <span>{item.id}</span> - <span>{item.title}</span>
-                        <button onClick={() => addToFavorites(item)}>
-                            {favorites.some(fav => fav.id === item.id) ? 'Remove from Favorites' : 'Add to Favorites'}
+                        <button onClick={() => addToList(item)}>
+                            {listItem.some(list => list.id === item.id) ? 'Remove from Favorites' : 'Add to Favorites'}
                         </button>
                     </li>
                 ))}
